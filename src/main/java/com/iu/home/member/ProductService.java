@@ -1,52 +1,80 @@
 package com.iu.home.member;
 
+import java.util.List;
+
 public class ProductService {
+	private ProductDAO productDAO;
+	
+	//1결합도가 높다 (강하다)
+//	private ProductDAO productDAO = new ProductDAO();
+	//2.초기화블럭,결합도가 높다 (강하다)
+//	{
+//		this.productDAO = new ProductDAO();
+//	}
+	//3.생성자,결합도가 높다 (강하다)
+	public ProductService() {
+		this.productDAO = new ProductDAO();
+	}
+	//4.호출해서 사용해야함,setter,결합도 약함,주소값만 참조하기 때문에 productDAO를 삭제하여도 DAO는 살아있음.
+	public void setProductDAO(ProductDAO productDAO) {
+		this.productDAO = productDAO;
+	}
+	
+	
+	public int setAddProduct(ProductDTO productDTO,List<ProductOptinDTO> ar)throws Exception{
+		//product , option
+		Long productNum = productDAO.getProductNum();
+		productDTO.setProductNum(productNum);
+		int result = productDAO.setAddProduct(productDTO);
+		
+		for(ProductOptinDTO productOptionDTO:ar) {
+			productOptionDTO.setProductNum(productNum);
+			result = productDAO.setAddProductOption(null);
+		}
+		return result;
+	}
+	
 
 	public static void main(String[] args) {
 		ProductDAO productDAO = new ProductDAO();
 		
-		
-		
 		ProductDTO productDTO = new ProductDTO();
-		productDTO.setNum(1);
-		productDTO.setName("product1");
-		productDTO.setDetail("asdf");
-		productDTO.setJumsu(0.0);
+		productDTO.setProductName("product1");
+		productDTO.setProductDetail("detail1");
 		
-		ProductOptionDTO productOptionDTO = new ProductOptionDTO();
-		productOptionDTO.setNum(1L);
-		productOptionDTO.setName("optionName1");
-		productOptionDTO.setPrice(100L);
-		productOptionDTO.setInventory(10L);
-		productOptionDTO.setNumber(1L);
+		ProductOptinDTO productOptinDTO = new ProductOptinDTO();
+		productOptinDTO.setOptionName("optionName1");
+		productOptinDTO.setOptionPrice(100L);
+		productOptinDTO.setOptionAmount(10L);
+		productOptinDTO.setProductNum(null);
 		
-		ProductOptionDTO productOptionDTO2 = new ProductOptionDTO();
-		productOptionDTO2.setNum(2L);
-		productOptionDTO2.setName("optionName1");
-		productOptionDTO2.setPrice(200L);
-		productOptionDTO2.setInventory(20L);
-		productOptionDTO2.setNumber(2L);
+		ProductOptinDTO productOptinDTO2 = new ProductOptinDTO();
+		productOptinDTO2.setOptionName("optionName2");
+		productOptinDTO2.setOptionPrice(200L);
+		productOptinDTO2.setOptionAmount(20L);
+		productOptinDTO2.setProductNum(null);
 		
 		try {
-			int num = productDAO.getProductNum();
+			Long num = productDAO.getProductNum();
 			
-			productDTO.setNum(num);
+			productDTO.setProductNum(num);
 			
 			int result = productDAO.setAddProduct(productDTO);
 			
-			
-			productOptionDTO.setNum((long) num);
+			productOptinDTO.setProductNum(num);
 			
 			if(result>0) {
-				productDAO.setAddProductOption(productOptionDTO);
+				productDAO.setAddProductOption(productOptinDTO);
 			}
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
+
 	}
 
 }
+	
+	
+	

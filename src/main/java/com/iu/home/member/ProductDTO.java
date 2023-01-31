@@ -1,40 +1,38 @@
 package com.iu.home.member;
 
 public class ProductDTO {
+	private Long productNum;
+	private String productName;
+	private String productDetail;
+	private Double productJumsu;
+	
+	public Long getProductNum() {
+		return productNum;
+	}
+	public void setProductNum(Long productNum) {
+		this.productNum = productNum;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public String getProductDetail() {
+		return productDetail;
+	}
+	public void setProductDetail(String productDetail) {
+		this.productDetail = productDetail;
+	}
+	public Double getProductJumsu() {
+		return productJumsu;
+	}
+	public void setProductJumsu(Double productJumsu) {
+		this.productJumsu = productJumsu;
+	}
+	
+	
 
-	
-	
-	private int num;
-	private String name;
-	private String detail;
-	private Double jumsu;
-	
-	public int getNum() {
-		return num;
-	}
-	public void setNum(int num) {
-		this.num = num;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getDetail() {
-		return detail;
-	}
-	public void setDetail(String detail) {
-		this.detail = detail;
-	}
-	public Double getJumsu() {
-		return jumsu;
-	}
-	public void setJumsu(Double jumsu) {
-		this.jumsu = jumsu;
-	}
-	
-	
-	
-	
 }
+
+
